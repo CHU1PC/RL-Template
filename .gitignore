@@ -1,0 +1,67 @@
+# Rust
+target/
+
+# Python
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
+
+# Virtual environments
+.venv/
+
+# uv caches
+.uv-cache/
+.cache/uv/
+
+# Test and type-checker caches
+.pytest_cache/
+.ruff_cache/
+.pyright/
+.mypy_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+kaggle.json
+
+# Operating system files
+.DS_Store
+
+# Editor settings
+.vscode/
+.idea/
+
+# Kaggle data
+data/
+input/
+
+# Trained models and checkpoints
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.safetensors
+models/
+checkpoints/
+
+# Experiment logs
+wandb/
+runs/
+mlruns/
+outputs/
+logs/
+
+# Replays
+replays/
+*.replay.json
+
+# Submission archives
+*.tar.gz
+*.zip
+submissions/

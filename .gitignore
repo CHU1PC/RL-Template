@@ -38,30 +38,36 @@ kaggle.json
 .idea/
 
 # Kaggle data
-data/
-input/
+/data/
+/input/
 
 # Trained models and checkpoints
 *.pt
 *.pth
 *.ckpt
 *.onnx
+!crates/infer/tests/fixtures/*.onnx
 *.safetensors
-models/
-checkpoints/
+/models/
+/checkpoints/
 
 # Experiment logs
-wandb/
-runs/
-mlruns/
-outputs/
-logs/
+/wandb/
+/runs/
+/mlruns/
+/outputs/
+/logs/
 
 # Replays
-replays/
+/replays/
 *.replay.json
 
 # Submission archives
 *.tar.gz
 *.zip
-submissions/
+/submissions/
+
+# Build outputs in source tree
+*.so
+/ladder/server/server
+node_modules/

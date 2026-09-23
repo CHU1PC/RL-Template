@@ -1,0 +1,62 @@
+# Python は pydantic、Rust は serde_yml で同じ設定ファイルを読む。
+# 使用するアルゴリズムを指定する。
+algorithm: ppo
+# エンコード済み観測の特徴量数を指定する。
+obs_dim: 128 # core/encode の符号化と ONNX の契約に一致させる。
+# 選択できる離散行動の数を指定する。
+n_actions: 16 # core/encode の符号化と ONNX の契約に一致させる。
+# 観測バックボーンと共有ネットワークの隠れ層幅を指定する。
+model:
+  backbone: mlp
+  hidden_sizes: [256, 256]
+# CNN を使う場合は、obs_dim と obs_shape の積を一致させる。
+# model:
+#   backbone: cnn
+#   obs_shape: [C, H, W]
+#   channels: 64
+#   blocks: 4
+# Attention を使う場合は、obs_dim と obs_shape の積を一致させる。
+# model:
+#   backbone: attention
+#   obs_shape: [N, d]
+#   d_model: 128
+#   n_heads: 4
+#   n_layers: 2
+# Rust selfplay が書いたサンプルファイルのパスを指定する。
+samples_path: samples/ppo.safetensors
+# 学習後に書き出す ONNX ファイルのパスを指定する。
+export_path: models/rl_v1.onnx
+# 乱数シードを指定する。
+seed: 0
+# PPO の更新設定を指定する。
+ppo:
+  # オプティマイザーの学習率を指定する。
+  lr: 0.0003
+  # オプティマイザーの weight decay を指定する。
+  weight_decay: 0.0
+  # PPO の方策比率を切り取る幅を指定する。
+  clip_eps: 0.2
+  # 価値損失の係数を指定する。
+  value_coef: 0.5
+  # エントロピー報酬の係数を指定する。
+  entropy_coef: 0.01
+  # バッチを繰り返して学習する回数を指定する。
+  epochs: 4
+  # ミニバッチの最大行数を指定する。
+  minibatch_size: 256
+  # 勾配ノルムの上限を指定する。
+  max_grad_norm: 0.5
+# AlphaZero の更新設定を指定する。
+alphazero:
+  # オプティマイザーの学習率を指定する。
+  lr: 0.001
+  # オプティマイザーの weight decay を指定する。
+  weight_decay: 0.0001
+  # 価値損失の係数を指定する。
+  value_coef: 1.0
+  # バッチを繰り返して学習する回数を指定する。
+  epochs: 1
+  # ミニバッチの最大行数を指定する。
+  minibatch_size: 256
+  # 勾配ノルムの上限を指定する。
+  max_grad_norm: 1.0

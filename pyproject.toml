@@ -1,0 +1,85 @@
+[build-system]
+requires = ["maturin>=1.7,<2"]
+build-backend = "maturin"
+
+[project]
+name = "rl-template"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = [
+    "numpy",
+    "pydantic",
+    "pydantic-settings[yaml]",
+    "safetensors",
+    "torch",
+]
+
+[dependency-groups]
+dev = [
+    "onnx>=1.23.0",
+    "onnxruntime>=1.30.0",
+    "pyright",
+    "pytest",
+    "ruff",
+    "ty",
+]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+testpaths = ["tests"]
+
+[tool.maturin]
+manifest-path = "crates/py/Cargo.toml"
+module-name = "rl_template._core"
+python-source = "."
+
+[tool.pyright]
+typeCheckingMode = "strict"
+pythonVersion = "3.13"
+include = ["rl_template", "tests", "crates/infer/tests/fixtures"]
+
+[tool.ty.src]
+exclude = ["crates"]
+
+[tool.ruff]
+extend-include = ["*.ipynb"]
+extend-exclude = ["configs/*.yml"]
+line-length = 120
+indent-width = 4
+target-version = "py313"
+
+[tool.ruff.lint]
+preview = true
+select = ["ALL"]
+ignore = [
+    "missing-trailing-comma",
+    "single-line-implicit-string-concatenation",
+    "undocumented-public-module",
+    "undocumented-public-package",
+    "incorrect-blank-line-before-class",
+    "multi-line-summary-second-line",
+    "missing-copyright-notice",
+    "commented-out-code", # 日本語のセクションコメントが誤検知される
+    "missing-todo-author",  # TODO に作者名を求めない。テンプレートの TODO は全部同じ作者
+    "missing-todo-link",  # TODO に issue のリンクを求めない
+    "line-contains-todo", # TODO を残すテンプレートなので、TODO 自体を検出しない
+]
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["assert", "undocumented-public-function", "ANN", "implicit-namespace-package"]
+"rl_template/data/samples.py" = ["missing-terminal-punctuation"]
+"crates/infer/tests/fixtures/make_fixture.py" = ["implicit-namespace-package"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"

@@ -1,0 +1,46 @@
+{
+  "name": "ladder-web",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "bun run generate:routes && tsc -b && vite build",
+    "preview": "vite preview",
+    "generate": "kubb generate",
+    "generate:routes": "tsr generate"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@tanstack/react-query": "^5.103.2",
+    "@tanstack/react-router": "^1.170.38",
+    "class-variance-authority": "^0.7.1",
+    "cn": "^0.4.0",
+    "lucide-react": "^1.47.0",
+    "radix-ui": "^1.6.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tw-animate-css": "^1.4.0",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@kubb/ast": "5.3.11",
+    "@kubb/cli": "^5.3.11",
+    "@kubb/core": "^5.3.11",
+    "@kubb/plugin-fetch": "5.4.1",
+    "@kubb/plugin-oas": "^4.39.3",
+    "@kubb/plugin-react-query": "^5.1.2",
+    "@kubb/plugin-ts": "^5.0.2",
+    "@kubb/plugin-zod": "^5.1.6",
+    "@tailwindcss/vite": "^4.3.3",
+    "@tanstack/router-cli": "^1.167.38",
+    "@tanstack/router-plugin": "^1.168.40",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "shadcn": "^4.21.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.0"
+  }
+}

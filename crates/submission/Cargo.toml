@@ -1,0 +1,8 @@
+[package]
+name = "rl-submission"
+edition.workspace = true
+version.workspace = true
+
+[dependencies]
+rl-core = { version = "0.1.0", path = "../core" }
+rl-infer = { version = "0.1.0", path = "../infer" }

@@ -1,0 +1,937 @@
+components:
+  schemas:
+    AgentBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/AgentBody.json
+          format: uri
+          readOnly: true
+          type: string
+        builtin_name:
+          type: string
+        created_at:
+          type: string
+        file_path:
+          type: string
+        id:
+          format: int64
+          type: integer
+        kind:
+          type: string
+        name:
+          type: string
+        rating_mu:
+          format: double
+          type: number
+        rating_sigma:
+          format: double
+          type: number
+      required:
+        - id
+        - name
+        - kind
+        - file_path
+        - builtin_name
+        - rating_mu
+        - rating_sigma
+        - created_at
+      type: object
+    AgentListBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/AgentListBody.json
+          format: uri
+          readOnly: true
+          type: string
+        agents:
+          items:
+            $ref: "#/components/schemas/AgentBody"
+          type:
+            - array
+            - "null"
+      required:
+        - agents
+      type: object
+    BatchBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/BatchBody.json
+          format: uri
+          readOnly: true
+          type: string
+        created_at:
+          type: string
+        done_count:
+          format: int64
+          type: integer
+        error:
+          type: string
+        failed_count:
+          format: int64
+          type: integer
+        finished_at:
+          type: string
+        games:
+          format: int64
+          type: integer
+        id:
+          format: int64
+          type: integer
+        matches:
+          items:
+            $ref: "#/components/schemas/MatchBody"
+          type:
+            - array
+            - "null"
+        started_at:
+          type: string
+        status:
+          type: string
+      required:
+        - id
+        - status
+        - games
+        - error
+        - created_at
+        - started_at
+        - finished_at
+        - failed_count
+        - done_count
+      type: object
+    BatchListBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/BatchListBody.json
+          format: uri
+          readOnly: true
+          type: string
+        batches:
+          items:
+            $ref: "#/components/schemas/BatchBody"
+          type:
+            - array
+            - "null"
+      required:
+        - batches
+      type: object
+    CreateAutoBatchBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/CreateAutoBatchBody.json
+          format: uri
+          readOnly: true
+          type: string
+        games:
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+        - games
+      type: object
+    CreateBatchBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/CreateBatchBody.json
+          format: uri
+          readOnly: true
+          type: string
+        agent_ids:
+          items:
+            format: int64
+            type: integer
+          minItems: 2
+          type:
+            - array
+            - "null"
+        games:
+          format: int64
+          minimum: 1
+          type: integer
+      required:
+        - agent_ids
+        - games
+      type: object
+    CreateGroupBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/CreateGroupBody.json
+          format: uri
+          readOnly: true
+          type: string
+        name:
+          type: string
+      required:
+        - name
+      type: object
+    ErrorDetail:
+      additionalProperties: false
+      properties:
+        location:
+          description: Where the error occurred, e.g. 'body.items[3].tags' or 'path.thing-id'
+          type: string
+        message:
+          description: Error message text
+          type: string
+        value:
+          description: The value at the given location
+      type: object
+    ErrorModel:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/ErrorModel.json
+          format: uri
+          readOnly: true
+          type: string
+        detail:
+          description: A human-readable explanation specific to this occurrence of the problem.
+          examples:
+            - Property foo is required but is missing.
+          type: string
+        errors:
+          description: Optional list of individual error details
+          items:
+            $ref: "#/components/schemas/ErrorDetail"
+          type:
+            - array
+            - "null"
+        instance:
+          description: A URI reference that identifies the specific occurrence of the problem.
+          examples:
+            - https://example.com/error-log/abc123
+          format: uri
+          type: string
+        status:
+          description: HTTP status code
+          examples:
+            - 400
+          format: int64
+          type: integer
+        title:
+          description: A short, human-readable summary of the problem type. This value should not change between occurrences of the error.
+          examples:
+            - Bad Request
+          type: string
+        type:
+          default: about:blank
+          description: A URI reference to human-readable documentation for the error.
+          examples:
+            - https://example.com/errors/example
+          format: uri
+          type: string
+      type: object
+    GameBody:
+      additionalProperties: false
+      properties:
+        duration_ms:
+          format: int64
+          type: integer
+        id:
+          format: int64
+          type: integer
+        index:
+          format: int64
+          type: integer
+        match_id:
+          format: int64
+          type: integer
+        replay_path:
+          type: string
+        result:
+          type: string
+        score_a:
+          format: double
+          type: number
+        score_b:
+          format: double
+          type: number
+        seed:
+          format: int64
+          type: string
+        turns:
+          format: int64
+          type: integer
+      required:
+        - id
+        - match_id
+        - index
+        - seed
+        - score_a
+        - score_b
+        - result
+        - turns
+        - duration_ms
+        - replay_path
+      type: object
+    GroupAgentBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/GroupAgentBody.json
+          format: uri
+          readOnly: true
+          type: string
+        agent_id:
+          format: int64
+          type: integer
+      required:
+        - agent_id
+      type: object
+    GroupAgentsBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/GroupAgentsBody.json
+          format: uri
+          readOnly: true
+          type: string
+        agents:
+          items:
+            $ref: "#/components/schemas/AgentBody"
+          type:
+            - array
+            - "null"
+        group:
+          $ref: "#/components/schemas/GroupBody"
+      required:
+        - group
+        - agents
+      type: object
+    GroupBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/GroupBody.json
+          format: uri
+          readOnly: true
+          type: string
+        created_at:
+          type: string
+        id:
+          format: int64
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+        - created_at
+      type: object
+    GroupListBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/GroupListBody.json
+          format: uri
+          readOnly: true
+          type: string
+        groups:
+          items:
+            $ref: "#/components/schemas/GroupBody"
+          type:
+            - array
+            - "null"
+      required:
+        - groups
+      type: object
+    MatchBody:
+      additionalProperties: false
+      properties:
+        agent_a_id:
+          format: int64
+          type: integer
+        agent_a_name:
+          type: string
+        agent_b_id:
+          format: int64
+          type: integer
+        agent_b_name:
+          type: string
+        batch_id:
+          format: int64
+          type: integer
+        created_at:
+          type: string
+        draw:
+          format: int64
+          type: integer
+        duration_ms:
+          format: int64
+          type: integer
+        error:
+          type: string
+        games:
+          format: int64
+          type: integer
+        id:
+          format: int64
+          type: integer
+        loss_a:
+          format: int64
+          type: integer
+        seed:
+          format: int64
+          type: string
+        status:
+          type: string
+        win_a:
+          format: int64
+          type: integer
+      required:
+        - id
+        - batch_id
+        - agent_a_id
+        - agent_b_id
+        - agent_a_name
+        - agent_b_name
+        - games
+        - seed
+        - status
+        - error
+        - win_a
+        - draw
+        - loss_a
+        - duration_ms
+        - created_at
+      type: object
+    MatchDetailBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/MatchDetailBody.json
+          format: uri
+          readOnly: true
+          type: string
+        games:
+          items:
+            $ref: "#/components/schemas/GameBody"
+          type:
+            - array
+            - "null"
+        match:
+          $ref: "#/components/schemas/MatchBody"
+      required:
+        - match
+        - games
+      type: object
+    MatchListBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/MatchListBody.json
+          format: uri
+          readOnly: true
+          type: string
+        matches:
+          items:
+            $ref: "#/components/schemas/MatchBody"
+          type:
+            - array
+            - "null"
+      required:
+        - matches
+      type: object
+    RankingListBody:
+      additionalProperties: false
+      properties:
+        $schema:
+          description: A URL to the JSON Schema for this object.
+          examples:
+            - /api/schemas/RankingListBody.json
+          format: uri
+          readOnly: true
+          type: string
+        ranking:
+          items:
+            $ref: "#/components/schemas/RankingRowBody"
+          type:
+            - array
+            - "null"
+      required:
+        - ranking
+      type: object
+    RankingRowBody:
+      additionalProperties: false
+      properties:
+        agent:
+          type: string
+        agent_id:
+          format: int64
+          type: integer
+        draw:
+          format: int64
+          type: integer
+        games:
+          format: int64
+          type: integer
+        loss:
+          format: int64
+          type: integer
+        mu:
+          format: double
+          type: number
+        sigma:
+          format: double
+          type: number
+        win:
+          format: int64
+          type: integer
+        win_rate:
+          format: double
+          type: number
+      required:
+        - agent
+        - agent_id
+        - mu
+        - sigma
+        - games
+        - win
+        - draw
+        - loss
+        - win_rate
+      type: object
+info:
+  title: ladder
+  version: 0.0.0
+openapi: 3.1.0
+paths:
+  /agents:
+    get:
+      operationId: list-agents
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentListBody"
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Error
+    post:
+      operationId: create-agent
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding:
+              builtin_name:
+                contentType: text/plain
+              file:
+                contentType: application/octet-stream
+              kind:
+                contentType: text/plain
+              name:
+                contentType: text/plain
+            schema:
+              properties:
+                builtin_name:
+                  type: string
+                file:
+                  contentEncoding: binary
+                  contentMediaType: application/octet-stream
+                  format: binary
+                  type: string
+                kind:
+                  enum:
+                    - onnx
+                    - builtin
+                  type: string
+                name:
+                  type: string
+              required:
+                - name
+                - kind
+              type: object
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentBody"
+          description: Created
+        "409":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Conflict
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /agents/{id}:
+    get:
+      operationId: get-agent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AgentBody"
+          description: OK
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Not Found
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /batches:
+    get:
+      operationId: list-batches
+      parameters:
+        - explode: false
+          in: query
+          name: limit
+          schema:
+            default: 100
+            format: int64
+            minimum: 1
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchListBody"
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Error
+    post:
+      operationId: create-batch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateBatchBody"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchBody"
+          description: Created
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Not Found
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /batches/auto:
+    post:
+      operationId: create-auto-batch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateAutoBatchBody"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchBody"
+          description: Created
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /batches/{id}:
+    get:
+      operationId: get-batch
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BatchBody"
+          description: OK
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Not Found
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /groups:
+    get:
+      operationId: list-groups
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupListBody"
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Error
+    post:
+      operationId: create-group
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateGroupBody"
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupBody"
+          description: Created
+        "409":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Conflict
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /groups/{id}/agents:
+    post:
+      operationId: add-group-agent
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GroupAgentBody"
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GroupAgentsBody"
+          description: OK
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Not Found
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /matches:
+    get:
+      operationId: list-matches
+      parameters:
+        - explode: false
+          in: query
+          name: agent_id
+          schema:
+            format: int64
+            type: integer
+        - explode: false
+          in: query
+          name: limit
+          schema:
+            default: 100
+            format: int64
+            minimum: 1
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchListBody"
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Error
+  /matches/{id}:
+    get:
+      operationId: get-match
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            format: int64
+            type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MatchDetailBody"
+          description: OK
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Not Found
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Internal Server Error
+  /ranking:
+    get:
+      operationId: get-ranking
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RankingListBody"
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ErrorModel"
+          description: Error
+servers:
+  - url: /api
